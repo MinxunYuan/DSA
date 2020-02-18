@@ -5,16 +5,22 @@ public class Main {
     public static void main(String[] args) {
 
         // 作业1测试数据：
-        Stack<Integer> stack = new Stack<>(10);
-        for (int i = 0; i < 10; i++) {
+        Stack<Integer> stack = new Stack<>(15);
+        for (int i = 0; i < 20; i++) {
             stack.push(i);
             System.out.println(stack);
         }
+        for (int i = 0; i < 16; i++) {
+            stack.pop();
+            System.out.println(stack);
+        }
+
+
         stack.setNull();
         System.out.println(stack);
 
-        playStack();
-        System.out.println(isSymmetricalStr("abcecba"));
+//        playStack();
+//        System.out.println(isSymmetricalStr("abcecba"));
     }
 
     // 作业3
