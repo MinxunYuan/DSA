@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class QuickSort {
     private QuickSort() {
     }
@@ -21,6 +23,8 @@ public class QuickSort {
      * @return 返回pivot的索引
      */
     private static <E extends Comparable<E>> int partition(E[] arr, int l, int r) {
+        int p = (new Random()).nextInt(r - l + 1);
+        swap(arr, l, p);
         // arr[l..j]<v ; arr[j+1..i]>v
         int j = l;
         for (int i = l + 1; i <= r; i++) {
