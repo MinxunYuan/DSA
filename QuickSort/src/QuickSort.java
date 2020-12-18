@@ -5,6 +5,7 @@ public class QuickSort {
     }
 
     public static <E extends Comparable<E>> void sort(E[] arr) {
+
         sort(arr, 0, arr.length - 1);
     }
 
@@ -13,6 +14,32 @@ public class QuickSort {
         int p = partition(arr, l, r);
         sort(arr, l, p - 1);
         sort(arr, l + 1, r);
+    }
+
+    private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r) {
+        Random rnd = new Random();
+        int p = l + rnd.nextInt(r - l + 1); // 参数bound exclude r，所以说得+1
+        swap(arr, l, p);
+        int i = l + 1, j = r;
+        // i>> v <<j, arr[l+1...i-1] <= v arr[j+1...r] >= v
+        while (true) {
+            while (i <= j && arr[i].compareTo(arr[l]) < 0) {
+                i++;
+            }
+            while (i <= j && arr[j].compareTo(arr[l]) > 0) {
+                // 只要arr[j]>p，就别出来，j--，只要一出来arr[j]必<=p
+                j--;
+            }
+            // 这两个循环结束之后, 有可能i>j：所有元素遍历完毕，i==j指向一个等于标定点的元素
+            if (i >= j) {
+                break;
+            }
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
+        swap(arr, i, j);
+        return j;
     }
 
     /**
