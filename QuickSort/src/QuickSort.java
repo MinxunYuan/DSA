@@ -15,6 +15,30 @@ public class QuickSort {
         sort(arr, l, p - 1);
         sort(arr, l + 1, r);
     }
+    private static <E extends Comparable<E>> void sort3ways(E[] arr, int l, int r) {
+        if(l>=r) return;
+        Random rnd = new Random();
+        // 随机在l~r中找一个，跟arr[l]swap一下
+        int p = rnd.nextInt(r-l+1)+l; // 参数bound是exclusive的，所以说要+1
+        swap(arr,l,p);
+        // lt指向<p的最后一个，gt指向>p的最后一个, 一开始都没有
+        // <v: arr[l+1...lt], ==v: arr[lt+1...gt-1], >v: arr[gt...r]
+        int lt = l, i=l+1, gt = r+1; // 初值根据上面的循环不变量定义出来
+        while(i<gt) {
+            if(arr[i].compareTo(arr[l])<0) {
+                swap(arr, ++lt, i++);
+            } else if(arr[i].compareTo(arr[l])>0) {
+                swap(arr, --gt, i);
+            } else {
+                i++;
+            }
+        }
+        // 出去的时候i==gt，因为arr[l]==p, 它应该作为==区第一个，最后小于区是arr[l...lt-1]
+        swap(arr, l, lt);
+        // <v: arr[l...lt-1], ==v: arr[lt...gt-1], >v: arr[gt...r]
+        sort3ways(arr, l, lt-1);
+        sort3ways(arr, gt, r);
+    }
 
     private static <E extends Comparable<E>> int partition2(E[] arr, int l, int r) {
         Random rnd = new Random();
